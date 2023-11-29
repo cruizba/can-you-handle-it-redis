@@ -1,4 +1,4 @@
-# Can you handle it, Redis?
+# Redis load test
 
 Simple tool to load test redis write/read/delete operations.
 Each goroutine will write and read a key, and then remove it.
