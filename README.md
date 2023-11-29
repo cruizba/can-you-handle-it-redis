@@ -22,5 +22,5 @@ In case of errors, they will appear in the stout.
 
 I've written this just to check redis faultolerance while starting and removing servers from a redis cluster.
 
-> Note: This can polute your redis cluster, so use it with caution.
+> Note: This can polute your redis cluster, so don't use it in real production.
 
