@@ -1,6 +1,6 @@
 # Can you handle it Redis?
 
-Simple tool to check redis write and read massively. It will write, read and remove keys continuously.
+Simple tool to load test redis write/read/delete operations.
 Each goroutine will write and read a key, and then remove it.
 
 Just run it with the following command:
