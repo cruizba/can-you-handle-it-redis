@@ -56,7 +56,7 @@ func main() {
 
 	for i := 0; i < *numberOfGoroutines; i++ {
 		wg.Add(1)
-		go func(ctx context.Context, rdb *redis.ClusterClient, wg *sync.WaitGroup) {
+		go func(ctx context.Context, index int, rdb *redis.ClusterClient, wg *sync.WaitGroup) {
 			defer wg.Done()
 			for {
 				time.Sleep(sleepDuration)
@@ -64,22 +64,32 @@ func main() {
 				case <-ctx.Done():
 					return
 				default:
-					err := rdb.Set(ctx, "key", "value", 0).Err()
+					randomKeyAndValue := fmt.Sprintf("%d-%d", index, time.Now().UnixNano())
+					key := fmt.Sprintf("key-%s", randomKeyAndValue)
+					value := fmt.Sprintf("value-%s", randomKeyAndValue)
+					err := rdb.Set(ctx, key, value, 0).Err()
 					if err != nil {
 						fmt.Println("Error writing to Redis:", err)
 						continue
 					}
+					fmt.Printf("gr-%d: Wrote key %s with value %s\n", index, key, value)
 
 					val, err := rdb.Get(ctx, "key").Result()
 					if err != nil {
 						fmt.Println("Error reading from Redis:", err)
 						continue
 					}
+					fmt.Printf("gr-%d: Read key %s with value %s\n", index, key, val)
 
-					fmt.Println("Got value:", val)
+					err = rdb.Del(ctx, key).Err()
+					if err != nil {
+						fmt.Println("Error deleting from Redis:", err)
+						continue
+					}
+					fmt.Printf("gr-%d: Deleted key %s\n", index, key)
 				}
 			}
-		}(ctx, rdb, &wg)
+		}(ctx, i, rdb, &wg)
 	}
 
 	// Set up signal handling

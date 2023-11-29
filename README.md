@@ -18,3 +18,5 @@ docker run -it --rm ghcr.io/cruizba/can-you-handle-it-redis:latest \
 - `goroutines` is the number of goroutines to use.
 - `sleep` is the time to sleep between each write/read.
 
+> Note: This can polute your redis cluster, so use it with caution.
+
