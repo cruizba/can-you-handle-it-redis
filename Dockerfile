@@ -23,6 +23,6 @@ RUN --mount=type=cache,target=/gomod-cache --mount=type=cache,target=/go-cache \
 
 FROM alpine
 
-COPY --from=builder /workspace/can-you-handle-it-redis /app/
+COPY --from=builder /workspace/redis-load-test /app/
 
-ENTRYPOINT ["/app/can-you-handle-it-redis"]
+ENTRYPOINT ["/app/redis-load-test"]

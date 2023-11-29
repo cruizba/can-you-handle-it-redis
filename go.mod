@@ -1,4 +1,4 @@
-module github.com/cruizba/can-you-handle-it-redis
+module github.com/cruizba/redis-load-test
 
 go 1.21.1
 
