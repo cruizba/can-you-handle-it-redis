@@ -14,17 +14,21 @@ import (
 	"github.com/redis/go-redis/v9"
 )
 
-var ctx = context.Background()
-
 func main() {
 	// Define command-line flags
 	clusterNodes := flag.String("cluster", "", "Comma-separated list of Redis cluster node addresses")
 	numberOfGoroutines := flag.Int("goroutines", 10, "Number of goroutines to run")
 	password := flag.String("password", "", "Redis password")
 	sleep := flag.String("sleep", "1s", "Sleep duration between writes")
+	startDelay := flag.String("start-delay", "50ms", "Delay on each goroutine start")
 	sleepDuration, err := time.ParseDuration(*sleep)
 	if err != nil {
 		fmt.Println("Error parsing sleep duration:", err)
+		os.Exit(1)
+	}
+	startDelayDuration, err := time.ParseDuration(*startDelay)
+	if err != nil {
+		fmt.Println("Error parsing start delay duration:", err)
 		os.Exit(1)
 	}
 
@@ -90,6 +94,7 @@ func main() {
 				}
 			}
 		}(ctx, i, rdb, &wg)
+		time.Sleep(startDelayDuration)
 	}
 
 	// Set up signal handling
