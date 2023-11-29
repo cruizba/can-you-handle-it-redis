@@ -36,7 +36,7 @@ jobs:
         file: ./Dockerfile
         push: true
         platforms: linux/amd64,linux/arm64
-        tags: ghcr.io/cruizba/can-you-handle-it-redis:latest
+        tags: ghcr.io/cruizba/redis-load-test:latest
 
     - name: Image Digest
       run: echo ${{ steps.docker_build.outputs.digest }}
