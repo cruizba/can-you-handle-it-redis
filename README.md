@@ -18,5 +18,9 @@ docker run -it --rm ghcr.io/cruizba/can-you-handle-it-redis:latest \
 - `goroutines` is the number of goroutines to use.
 - `sleep` is the time to sleep between each write/read.
 
+In case of errors, they will appear in the stout.
+
+I've written this just to check redis faultolerance while starting and removing servers from a redis cluster.
+
 > Note: This can polute your redis cluster, so use it with caution.
 
