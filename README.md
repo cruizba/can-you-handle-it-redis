@@ -6,7 +6,7 @@ Each goroutine will write and read a key, and then remove it.
 Just run it with the following command:
 
 ```
-docker run -it --rm ghcr.io/cruizba/can-you-handle-it-redis:latest \
+docker run -it --rm ghcr.io/cruizba/redis-load-test:latest \
     -cluster=redis-1:6379,redis-2:6379,redis-3:6379 \
     -password=yourpassword \
     -goroutines 10 \
