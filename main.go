@@ -74,7 +74,7 @@ func main() {
 					}
 					fmt.Printf("gr-%d: Wrote key %s with value %s\n", index, key, value)
 
-					val, err := rdb.Get(ctx, "key").Result()
+					val, err := rdb.Get(ctx, key).Result()
 					if err != nil {
 						fmt.Println("Error reading from Redis:", err)
 						continue
